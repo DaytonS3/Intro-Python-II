@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -37,9 +38,14 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
-# Make a new player object that is currently in the 'outside' room.
+# Make a new player object that is currently in the 'outside' room.\
+name = input("Enter Your Name: ")
+
+
+player = Player(name, room["outside"])
 
 # Write a loop that:
+
 #
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
@@ -47,5 +53,48 @@ room['treasure'].s_to = room['narrow']
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
+
 #
-# If the user enters "q", quit the game..
+# If the user enters "q", quit the game.
+pi = ""
+
+while pi != "q":
+    print("NAME", player.name)
+    print("ROOM", player.room.roomname)
+
+    print("What Direction would you like to go?")
+    direction = input("ENTER DIRECTION(N S E W or Q to quit): ").lower()
+    if direction == "q":
+        pi = "q"
+        print("GameOver")
+    elif player.room.roomname == "Outside Cave Entrance":
+        if direction == "n":
+            player.room.roomname = "foyer"
+        elif direction != "n":
+            print('MESSAGE: PICK A DIFFERENT DIRECTION')
+    elif player.room.roomname == "foyer":
+        if direction == "s":
+            player.room.roomname = "Outside Cave Entrance"
+        elif direction == "n":
+            player.room.roomname = "overlook"
+        elif direction == "e":
+            player.room.roomname = "narrow"
+        else:
+            print('MESSAGE: PICK A DIFFERENT DIRECTION')
+    elif player.room.roomname == "overlook":
+        if direction == "s":
+            player.room.roomname = "foyer"
+        else:
+            print('MESSAGE: PICK A DIFFERENT DIRECTION')
+    elif player.room.roomname == "narrow":
+        if direction == "w":
+            player.room.roomname = "foyer"
+        elif direction == "n":
+            player.room.roomname = "treasure"
+        else:
+            print('MESSAGE: PICK A DIFFERENT DIRECTION')
+    elif player.room.roomname == "treasure":
+        if direction == "s":
+            player.room.roomname = "narrow"
+        else:
+            print('MESSAGE: PICK A DIFFERENT DIRECTION')
