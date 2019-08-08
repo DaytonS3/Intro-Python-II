@@ -69,9 +69,12 @@ pi = ""
 
 while pi != "q":
     print("NAME", player.name)
+    print("----------------------------------")
     print(player.room.roomname)
     print("DESC:", player.room.desc)
+    print("----------------------------------")
     print("Inventory:", player.items)
+    print("----------------------------------")
     if player.room.roomname == "Outside Cave Entrance":
 
         print("ITEMS: sword, sharp as can be")
