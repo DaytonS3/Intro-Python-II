@@ -10,4 +10,4 @@ class Room:
         self.items = items
 
     def __str__(self):
-        return (f"Room: {self.roomname}, Items: {self.items[0]}")
+        return (f"Room: {self.roomname}, Items: {self.items}")

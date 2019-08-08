@@ -70,9 +70,11 @@ pi = ""
 while pi != "q":
     print("NAME", player.name)
     print(player.room.roomname)
+    print("DESC:", player.room.desc)
+    print("Inventory:", player.items)
     if player.room.roomname == "Outside Cave Entrance":
 
-        print("ROOM: Outside Cave Entrance, ITEMS: sword, sharp as can be")
+        print("ITEMS: sword, sharp as can be")
 
     print("What Direction would you like to go?")
     direction = input("ENTER DIRECTION(N S E W or Q to quit): ").lower()
@@ -83,11 +85,13 @@ while pi != "q":
         if direction == "n":
             player.room.roomname = room['outside'].n_to
             player.room.items = player.room.items
-        elif direction != "n":
+        elif direction == "p":
+            player.items.append("sword")
+        elif direction != "n" and direction != "p":
             print('MESSAGE: PICK A DIFFERENT DIRECTION')
     elif player.room.roomname == room['outside'].n_to:
         if direction == "s":
-            player.room.roomname = room['foyer'].s_to
+            player.room.roomname = "Outside Cave Entrance"
         elif direction == "n":
             player.room.roomname = room['foyer'].n_to
         elif direction == "e":
