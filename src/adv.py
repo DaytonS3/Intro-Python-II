@@ -1,25 +1,34 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
+items = [
+    Item("sword", "sharp as can be."),
+    Item("shovel", "Might be better for digging"),
+    Item("rifle", "watch where you are shooting"),
+    Item("flashlight", "bright as the sun"),
+    Item("knife", "nice ole butterknife")
+]
+
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", [items[0]]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", [items[1]]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", [items[2]]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", [items[3]]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", [items[4]]),
 }
 
 
@@ -60,7 +69,10 @@ pi = ""
 
 while pi != "q":
     print("NAME", player.name)
-    print("ROOM", player.room.roomname)
+    print(player.room.roomname)
+    if player.room.roomname == "Outside Cave Entrance":
+
+        print("ROOM: Outside Cave Entrance, ITEMS: sword, sharp as can be")
 
     print("What Direction would you like to go?")
     direction = input("ENTER DIRECTION(N S E W or Q to quit): ").lower()
@@ -69,32 +81,33 @@ while pi != "q":
         print("GameOver")
     elif player.room.roomname == "Outside Cave Entrance":
         if direction == "n":
-            player.room.roomname = "foyer"
+            player.room.roomname = room['outside'].n_to
+            player.room.items = player.room.items
         elif direction != "n":
             print('MESSAGE: PICK A DIFFERENT DIRECTION')
-    elif player.room.roomname == "foyer":
+    elif player.room.roomname == room['outside'].n_to:
         if direction == "s":
-            player.room.roomname = "Outside Cave Entrance"
+            player.room.roomname = room['foyer'].s_to
         elif direction == "n":
-            player.room.roomname = "overlook"
+            player.room.roomname = room['foyer'].n_to
         elif direction == "e":
-            player.room.roomname = "narrow"
+            player.room.roomname = room['foyer'].e_to
         else:
             print('MESSAGE: PICK A DIFFERENT DIRECTION')
-    elif player.room.roomname == "overlook":
+    elif player.room.roomname == room['foyer'].n_to:
         if direction == "s":
-            player.room.roomname = "foyer"
+            player.room.roomname = room['overlook'].s_to
         else:
             print('MESSAGE: PICK A DIFFERENT DIRECTION')
-    elif player.room.roomname == "narrow":
+    elif player.room.roomname == room['foyer'].e_to:
         if direction == "w":
-            player.room.roomname = "foyer"
+            player.room.roomname = room['narrow'].w_to
         elif direction == "n":
-            player.room.roomname = "treasure"
+            player.room.roomname = room['narrow'].n_to
         else:
             print('MESSAGE: PICK A DIFFERENT DIRECTION')
-    elif player.room.roomname == "treasure":
+    elif player.room.roomname == room['narrow'].n_to:
         if direction == "s":
-            player.room.roomname = "narrow"
+            player.room.roomname = room['narrow'].s_to
         else:
             print('MESSAGE: PICK A DIFFERENT DIRECTION')

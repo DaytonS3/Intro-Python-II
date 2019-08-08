@@ -7,3 +7,4 @@ class Player:
     def __init__(self, name, Room):
         self.name = name
         self.room = Room
+        self.items = []

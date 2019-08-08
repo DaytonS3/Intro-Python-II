@@ -3,6 +3,11 @@
 
 
 class Room:
-    def __init__(self, roomname, desc):
+
+    def __init__(self, roomname, desc, items):
         self.roomname = roomname
         self.desc = desc
+        self.items = items
+
+    def __str__(self):
+        return (f"Room: {self.roomname}, Items: {self.items[0]}")
